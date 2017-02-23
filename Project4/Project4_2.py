@@ -8,7 +8,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.cross_validation import cross_val_predict, cross_val_score
 
-f = open('tweet_data/tweets_#gopatriots.txt', 'r')
+f = open('tweets_#gopatriots.txt', 'r', encoding = 'utf-8')
 
 line = f.readline()
 
@@ -23,10 +23,12 @@ while len(line)!=0:
 tweet_0=tweets[0]
 tweet_100=tweets[100]
 time_hour = np.zeros(len(tweets)).tolist()
+user_mentioned=[]
 for i in range(len(tweets)):
     time_hour_temp=time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(tweets[i]['firstpost_date']))
     time_hour[i]=(int(time_hour_temp[3])-4)*12*31*24+(int(time_hour_temp[5])*10+int(time_hour_temp[6])-1)*31*24+int(time_hour_temp[8])*10*24+int(time_hour_temp[9])*24+int(time_hour_temp[11])*10+int(time_hour_temp[12])
-
+    if len(tweets[i]['tweet']['entities']['user_mentions'])>1:
+        user_mentioned.append(tweets[i])
 
 start_time = tweets[0]['firstpost_date']
 #end_time = tweets[-1]['firstpost_date']
@@ -82,14 +84,3 @@ plt.scatter(result,residuals)
 plt.xlabel('Fitted values')
 plt.ylabel('Residuals')
 plt.show()
-
-'''
-plt.figure()
-index = np.arange(index_len).tolist()
-width = 1
-p = plt.bar(index, tweet_num, width)
-plt.xlabel('Time')
-plt.ylabel('Number of Tweets per hour')
-plt.title('Number of Tweets per hour for #superbowl')
-plt.show()
-'''

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 
-f = open('tweet_data/tweets_#gopatriots.txt', 'r',encoding='UTF-8')
+f = open('tweets_#gopatriots.txt', 'r', encoding = 'utf-8')
 
 line = f.readline()
 
@@ -25,7 +25,6 @@ for i in range(len(tweets)):
     tweet_num[int((tweets[i]['firstpost_date'] - start_time)/3600)] += 1
     retweets.append(tweets[i]['metrics']['citations']['total'])
     followers.append(tweets[i]['author']['followers'])
-
 
 
 avg_tweets = len(tweets)/((end_time - start_time)/3600)
